@@ -1,6 +1,9 @@
 import { createGroq } from '@ai-sdk/groq';
 import { streamText } from 'ai';
 
+export const runtime = 'edge';
+export const maxDuration = 30;
+
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
 });
