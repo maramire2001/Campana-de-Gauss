@@ -6,15 +6,19 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState, useEffect } from "react";
 
+import { MISSIONS_DATA } from "@/lib/missionsData";
+
 function SimulatorContent() {
   const searchParams = useSearchParams();
+  const rawId = searchParams.get("id");
   const m = Number(searchParams.get("mean")) || 50;
   const dev = Number(searchParams.get("stdDev")) || 15;
   const skew = Number(searchParams.get("skew")) || 0;
+  
+  const mission = rawId ? MISSIONS_DATA.find(x => x.id === parseInt(rawId)) : null;
+
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
 
-  // If skew is 0, median = mean. If skew is positive, mean is greater. 
-  // For a simple visual representation in our specific math implementation, we map skew to distance.
   const med = m - (skew * 5); 
 
   return (
@@ -31,19 +35,24 @@ function SimulatorContent() {
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 border border-neutral-800 bg-neutral-900/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 flex flex-col justify-between shadow-2xl">
           <div>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">Sala de Misiones Operativas</h2>
-            <h3 className="text-2xl font-bold mb-4">Base de Análisis</h3>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">
+              {mission ? `Misión 0${mission.id}` : "Laboratorio Abierto"}
+            </h2>
+            <h3 className="text-2xl font-bold mb-4">{mission ? mission.title : "Modo Libre"}</h3>
             <p className="text-neutral-300 leading-relaxed">
-              Interactúa con los controles numéricos. La curva ha sido cargada con parámetros iniciales.
+              {mission ? mission.desc : "Interactúa libremente con la campana."}
             </p>
-            <div className="mt-8 flex flex-col gap-2 p-4 bg-neutral-950 rounded-xl border border-neutral-800">
-               <div className="text-sm text-neutral-500">Misión Actual (URL Params)</div>
-               <div className="text-indigo-400 font-mono text-sm">Media = {m}</div>
-               <div className="text-indigo-400 font-mono text-sm">Desviación = {dev}</div>
-               <div className="text-indigo-400 font-mono text-sm">Sesgo = {skew}</div>
-            </div>
-            <div className="mt-6">
-                <Link href="/campus" className="px-5 py-2 inline-block rounded-lg bg-neutral-800 border border-neutral-700 hover:bg-neutral-700 transition w-full text-center">← Volver al Campus</Link>
+            
+            {mission && (
+              <div className="mt-6 p-4 bg-indigo-900/20 border border-indigo-500/30 rounded-xl">
+                 <h4 className="text-indigo-300 font-bold mb-1 text-sm">Objetivo Principal:</h4>
+                 <p className="text-neutral-300 text-sm italic">{mission.reflection}</p>
+                 <p className="text-indigo-400 mt-3 text-xs font-bold uppercase">{mission.tip}</p>
+              </div>
+            )}
+
+            <div className="mt-8">
+                <Link href="/campus" className="px-5 py-2 inline-block rounded-lg bg-neutral-800 border border-neutral-700 hover:bg-neutral-700 transition w-full text-center">← Volver al Menú</Link>
             </div>
           </div>
         </div>
