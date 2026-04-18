@@ -6,7 +6,93 @@ import { useChat } from "ai/react";
 export default function StationPage({ params }: { params: { id: string } }) {
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
 
-  const title = `Estación Teórica 0${params.id}`;
+  const stationId = parseInt(params.id) || 1;
+
+  const contentMap: Record<number, { title: string, text: React.ReactNode }> = {
+    1: {
+      title: "La Curva Perfecta 📐",
+      text: (
+        <>
+          <p className="text-xl leading-relaxed text-neutral-300">
+            La <strong>Distribución Normal</strong> (o Campana de Gauss) es el modelo matemático más importante de toda la estadística. Describe cómo se distribuyen de forma natural muchísimos fenómenos: desde la estatura humana, hasta los errores de medición y las calificaciones de un examen.
+          </p>
+          <p className="mt-4 text-neutral-400">
+            Su característica principal es que la gran mayoría de los datos se agrupan en el centro, y a medida que nos alejamos hacia los extremos (las "colas"), los casos son cada vez más raros. Además, es perfectamente <strong>SIMÉTRICA</strong>: la mitad izquierda es un espejo exacto de la derecha.
+          </p>
+        </>
+      )
+    },
+    2: {
+      title: "El Centro de Gravedad ⚖️",
+      text: (
+        <>
+          <p className="text-xl leading-relaxed text-neutral-300">
+            En una distribución perfectamente normal, las tres medidas de tendencia central son <strong>EXACTAMENTE IGUALES</strong> y caen en el mismo punto exacto: la punta de la campana. 
+          </p>
+          <p className="mt-4 text-neutral-400">
+            1. La <strong>Media</strong> (el promedio aritmético).<br/>
+            2. La <strong>Mediana</strong> (el valor que divide todo exactamente a la mitad).<br/>
+            3. La <strong>Moda</strong> (el valor que más se repite).<br/>
+            Cualquier desviación donde la Media se separe de la Mediana, rompe la simetría y crea un "sesgo".
+          </p>
+        </>
+      )
+    },
+    3: {
+      title: "Estirando la Liga 📏",
+      text: (
+        <>
+          <p className="text-xl leading-relaxed text-neutral-300">
+            La <strong>Desviación Estándar (σ)</strong> dicta qué tan "gorda" o "flaca" es tu campana. Es la medida promedio de qué tan dispersos están todos los puntos respecto al centro.
+          </p>
+          <p className="mt-4 text-neutral-400">
+            Si la desviación es muy baja, la campana será estrecha y alta (llamada leptocúrtica), porque casi todos sacaron la misma calificación. Si es muy alta, la campana es plana y ancha (platicúrtica), demostrando que hay muchísima diversidad o desigualdad en los datos.
+          </p>
+        </>
+      )
+    },
+    4: {
+      title: "La Regla Empírica y Z-Scores 🧗",
+      text: (
+        <>
+          <p className="text-xl leading-relaxed text-neutral-300">
+            La regla de oro estadística dicta que en una distribución normal perfecta: el <strong>68%</strong> de los datos caen a 1 desviación estándar del centro, el <strong>95%</strong> a 2, y el <strong>99.7%</strong> a 3.
+          </p>
+          <p className="mt-4 text-neutral-400">
+            Un <strong>Z-Score</strong> nos indica a cuántas "desviaciones estándar" de distancia está un dato respecto a la media. Si un alumno tiene un Z-score de +3, significa que tuvo un desempeño excepcional, superando al 99.8% de toda su clase. Un resultado por encima de 3 es virtualmente una anomalía.
+          </p>
+        </>
+      )
+    },
+    5: {
+      title: "Sesgos Peligrosos 🎢",
+      text: (
+        <>
+          <p className="text-xl leading-relaxed text-neutral-300">
+            El mundo rara vez es perfecto. Cuando decimos que una población tiene un <strong>Sesgo Positivo (Asimetría a la derecha)</strong>, la "cola" larga apunta hacia los números altos. Esto jala la Media hacia arriba, dejando atrás a la Mediana.
+          </p>
+          <p className="mt-4 text-neutral-400">
+            Por ejemplo, la distribución de la riqueza mundial tiene un fuerte sesgo positivo: hay muy pocos millonarios (cola larga derecha), pero arrastran el promedio aritmético hacia arriba, distorsionando la realidad económica del ciudadano común (la Mediana).
+          </p>
+        </>
+      )
+    },
+    6: {
+      title: "El Examen de Síntesis 🧠",
+      text: (
+        <>
+          <p className="text-xl leading-relaxed text-neutral-300">
+            Llegaste al checkpoint final antes del laboratorio. Debes demostrar que no estuviste leyendo en automático.
+          </p>
+          <p className="mt-4 text-neutral-400">
+            Toda herramienta estadística avanzada (como inferencias, pruebas T, o modelos de machine learning clásicos) ASUME que tus datos son "Normales". Si tu campana de Gauss está rota (muy sesgada o deforme), tus predicciones matemáticas colapsarán. Explícale a la IA Mentora por qué es tan peligroso ignorar la normalidad.
+          </p>
+        </>
+      )
+    }
+  };
+
+  const station = contentMap[stationId] || contentMap[1];
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white p-6 md:p-12 font-sans flex flex-col md:flex-row gap-8">
@@ -15,14 +101,9 @@ export default function StationPage({ params }: { params: { id: string } }) {
       <div className="flex-1 max-w-3xl">
         <Link href="/campus" className="text-neutral-500 hover:text-white mb-8 inline-block">← Volver al Campus</Link>
         <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 mb-8">
-          <h1 className="text-3xl font-extrabold text-indigo-400 mb-6">{title}</h1>
+          <h1 className="text-3xl font-extrabold text-indigo-400 mb-6">{station.title}</h1>
           <div className="prose prose-invert prose-indigo max-w-none">
-            <p className="text-xl leading-relaxed text-neutral-300">
-              Bienvenido a la estación teórica. Aquí es donde pondremos el concepto exacto que deseas que el alumno aprenda en esta etapa.
-            </p>
-            <p className="mt-4 text-neutral-400">
-              Por ejemplo, si esta es la estación sobre <strong>La Curtosis</strong>, aquí habrá una lectura de dos párrafos explicando cómo interactúa la desviación estándar al concentrar los datos en el centro...
-            </p>
+            {station.text}
             <div className="mt-8 p-6 bg-indigo-900/20 border border-indigo-500/30 rounded-xl">
               <h3 className="text-indigo-300 font-bold mb-2">Desafío Mentora Sigma</h3>
               <p className="text-neutral-300">
