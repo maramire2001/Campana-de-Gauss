@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 export default function WelcomePage() {
@@ -109,7 +110,17 @@ export default function WelcomePage() {
           </button>
         </form>
       </div>
-      <p className="mt-8 text-neutral-600 text-xs">Código de ejemplo hoy para entrar: GAUSS2026</p>
+      <div className="mt-8 flex flex-col items-center gap-2">
+        <p className="text-neutral-600 text-xs">Código de ejemplo hoy para entrar: GAUSS2026</p>
+        <div className="flex gap-6 mt-4 opacity-50 hover:opacity-100 transition-opacity">
+          <Link href="/admin" className="text-neutral-500 hover:text-indigo-400 text-xs font-semibold tracking-wide transition-colors">
+            Acceso Profesor
+          </Link>
+          <Link href="/simulator" className="text-neutral-500 hover:text-indigo-400 text-xs font-semibold tracking-wide transition-colors">
+            Entrar Directo al Simulador
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }
