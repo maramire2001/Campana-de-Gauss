@@ -98,6 +98,17 @@ function SimulatorContent() {
             Validar
           </button>
         </form>
+
+        {mission && (
+          <div className="mt-8 pt-6 border-t border-neutral-800 flex justify-center">
+            <Link 
+              href="/missions"
+              className="px-12 py-4 bg-green-600 hover:bg-green-500 text-white rounded-2xl font-black tracking-widest uppercase shadow-[0_0_30px_rgba(34,197,94,0.3)] transition transform hover:scale-105"
+            >
+              ✅ Concluir Misión y Reportar
+            </Link>
+          </div>
+        )}
       </section>
     </div>
   );
