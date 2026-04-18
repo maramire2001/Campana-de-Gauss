@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import { useChat } from "ai/react";
 
 export default function StationPage({ params }: { params: { id: string } }) {
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
