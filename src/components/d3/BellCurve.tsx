@@ -8,10 +8,10 @@ interface Point {
   value: number;
 }
 
-export default function BellCurve() {
-  const [mean, setMean] = useState(50);
-  const [median, setMedian] = useState(50);
-  const [deviation, setDeviation] = useState(15);
+export default function BellCurve({ initialMean = 50, initialMedian = 50, initialDeviation = 15 }) {
+  const [mean, setMean] = useState(initialMean);
+  const [median, setMedian] = useState(initialMedian);
+  const [deviation, setDeviation] = useState(initialDeviation);
   
   const [activePoint, setActivePoint] = useState<'mean' | 'median' | 'deviation' | null>(null);
   
