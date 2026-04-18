@@ -5,6 +5,7 @@ import BellCurve from "@/components/d3/BellCurve";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 import { MISSIONS_DATA } from "@/lib/missionsData";
 
