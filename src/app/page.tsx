@@ -36,13 +36,13 @@ export default function WelcomePage() {
       sessionStorage.setItem("student_name", formData.name);
       
       // Navegar a la sala del simulador!
-      router.push("/simulator");
+      router.push("/campus");
       
     } catch (err) {
       console.error(err);
       // Fallback de emergencia por si supabase falla y la clase está en progreso
       sessionStorage.setItem("student_name", formData.name);
-      router.push("/simulator");
+      router.push("/campus");
     } finally {
       setIsLoading(false);
     }
