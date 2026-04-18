@@ -111,6 +111,23 @@ export default function StationPage({ params }: { params: { id: string } }) {
               </p>
             </div>
           </div>
+
+          <div className="mt-12 pt-8 border-t border-white/5 flex flex-wrap gap-4">
+            <Link 
+              href="/campus"
+              className="px-8 py-4 bg-neutral-800 hover:bg-neutral-700 rounded-xl font-bold transition flex-1 text-center"
+            >
+              ← Terminar y Volver al Mapa
+            </Link>
+            {stationId < 6 && (
+              <Link 
+                href={`/campus/station/${stationId + 1}`}
+                className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-bold transition flex-1 text-center"
+              >
+                Siguiente Estación →
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 
