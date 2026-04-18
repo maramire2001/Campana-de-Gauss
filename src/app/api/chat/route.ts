@@ -5,7 +5,7 @@ export const runtime = 'edge';
 export const maxDuration = 30;
 
 const groq = createGroq({
-  apiKey: "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",
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(req: Request) {
