@@ -17,6 +17,16 @@ function SimulatorContent() {
   
   const mission = rawId ? MISSIONS_DATA.find(x => x.id === parseInt(rawId)) : null;
 
+  useEffect(() => {
+    const studentId = sessionStorage.getItem("student_id");
+    if (studentId) {
+      supabase.from("students")
+        .update({ current_status: mission ? `Misión ${mission.id}` : "Laboratorio Libre" })
+        .eq("id", studentId)
+        .then();
+    }
+  }, [mission]);
+
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
 
   const med = m - (skew * 5); 

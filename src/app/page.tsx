@@ -27,11 +27,14 @@ export default function WelcomePage() {
 
     try {
       // Intentar guardar en Supabase. 
-      // NOTA: Si RLS lo bloquea, lo dejamos pasar como fallback de emergencia para no arruinar la clase
-      await supabase.from("students").insert([
-        { full_name: formData.name, group_section: formData.group }
-      ]);
+      const { data, error } = await supabase.from("students").insert([
+        { full_name: formData.name, group_section: formData.group, current_status: "En el Campus" }
+      ]).select();
       
+      if (data && data[0]) {
+        sessionStorage.setItem("student_id", data[0].id);
+      }
+
       // Guardar sesión pseudo-local para la sesión
       sessionStorage.setItem("student_name", formData.name);
       

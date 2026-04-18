@@ -1,12 +1,22 @@
 "use client";
 
-import Link from "next/link";
-import { useChat } from "ai/react";
+import { useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function StationPage({ params }: { params: { id: string } }) {
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
 
   const stationId = parseInt(params.id) || 1;
+
+  useEffect(() => {
+    const studentId = sessionStorage.getItem("student_id");
+    if (studentId) {
+      supabase.from("students")
+        .update({ current_status: `Estación ${stationId}` })
+        .eq("id", studentId)
+        .then();
+    }
+  }, [stationId]);
 
   const contentMap: Record<number, { title: string, text: React.ReactNode }> = {
     1: {

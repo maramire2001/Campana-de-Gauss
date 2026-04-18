@@ -77,19 +77,25 @@ export default function AdminDashboard() {
             <tr className="bg-neutral-950 border-b border-neutral-800 text-neutral-400 text-sm uppercase tracking-widest">
               <th className="p-4">Alumno</th>
               <th className="p-4">Grupo</th>
+              <th className="p-4">Estatus / Avance</th>
               <th className="p-4">Llegada</th>
             </tr>
           </thead>
           <tbody>
             {students.length === 0 ? (
               <tr>
-                <td colSpan={3} className="p-8 text-center text-neutral-500 italic">No hay alumnos registrados aún. Esperando ingresos...</td>
+                <td colSpan={4} className="p-8 text-center text-neutral-500 italic">No hay alumnos registrados aún. Esperando ingresos...</td>
               </tr>
             ) : (
               students.map((stu: any) => (
                 <tr key={stu.id || stu.full_name} className="border-b border-neutral-800/50 hover:bg-neutral-800/20 transition-colors">
                   <td className="p-4 font-medium text-indigo-100">{stu.full_name}</td>
                   <td className="p-4 text-neutral-300">{stu.group_section}</td>
+                  <td className="p-4">
+                    <span className="bg-indigo-900/40 text-indigo-300 px-3 py-1 rounded-full text-xs font-bold border border-indigo-500/30">
+                      {stu.current_status || "Iniciando..."}
+                    </span>
+                  </td>
                   <td className="p-4 text-neutral-500 text-sm">
                     {stu.created_at ? new Date(stu.created_at).toLocaleTimeString() : 'Acaba de entrar'}
                   </td>
